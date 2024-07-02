@@ -8,7 +8,7 @@ const FILE_PATH = './email.py';  // Path to the file you're committing
 const func = async function() {
     let y = 175;
     
-    // Start from July 3, 2024, and loop through to July 28, 2024 (every day)
+    // Start from July 3, 2024, and loop through to July 28, 2024 (every 3 days)
     const startDate = moment('2024-07-03');  // Starting date (July 3, 2024)
     const endDate = moment('2024-07-28');    // Ending date (July 28, 2024)
 
@@ -45,10 +45,18 @@ const func = async function() {
             }).catch((err) => {
                 console.error("Failed to amend the previous commit: ", err);
             });
+            
+            // Push the commit to the remote repository
+            await simpleGit().push('origin', 'main')  // Push to the 'main' branch (change if needed)
+                .then(() => {
+                    console.log("Commit pushed to remote repository.");
+                }).catch((err) => {
+                    console.error("Git push failed: ", err);
+                });
         }
 
-        // Increment the date by 1 day for the next commit
-        currentDate.add(1, 'days');
+        // Increment the date by 3 days for the next commit
+        currentDate.add(3, 'days');
     }
 }
 
